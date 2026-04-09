@@ -2,7 +2,7 @@
 eip:
 title: Lean Staking
 description: L1 native, two-phase staking with validator unlinkability
-author: Mohammad Jahanara, Pierre Daix-Moreux
+author: Mohammad Jahanara (@mmjahanara), Pierre Daix-Moreux (@dmpierre)
 discussions-to:
 status: Draft
 type: Standards Track
