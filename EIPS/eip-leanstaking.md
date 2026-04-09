@@ -17,7 +17,7 @@ requires: EIP-6110, EIP-7251, EIP-8141
 
 We first describe a simple version of the protocol that requires only EL changes to the staking contract. Then, in section "Two-phase Withdrawals", we describe a slightly more involved version that requires changes to withdrawal mechanism in CL. However, our changes to the validator withdrawal protocol provides a strong in-protocol primitive for private ETH transfers with novel plausible deniability for sender and recipient of the funds. 
 
-Lean Staking can be post-quantum secure provided the underlying proving system is. We provide an implementation using LeanVM, an ongoing Ethereum Foundation project, which is envisioned as a formally verified and post-quantum ready proving system. It uses Poseidon2 over the degree 5 Koala-Bear field. The current draft does not enforce a specific hash function or field, as both are tied to the chosen proving system.
+Lean Staking can be post-quantum secure provided the underlying proving system is. We provide an implementation using LeanVM, an ongoing Ethereum Foundation project, which is envisioned as a formally verified and post-quantum ready proving system. It uses Poseidon1 over the Koala-Bear field (and an extension of degree 5). The current draft does not enforce a specific hash function or field, as both are tied to the chosen proving system.
 
 ## Motivation
 
@@ -67,7 +67,7 @@ The commitment and nullifier are defined as:
 
 Where `nullifier_preimage` is a single random value chosen by the depositor at pending deposit time. It serves as both the hiding randomness for the commitment and the source of the nullifier. An observer cannot link a revealed nullifier to a commitment without knowing the `nullifier_preimage`.
 
-We implement this using LeanVM, a VM coupled with a post-quantum proving system based on a combination of WHIR and Superspartan. LeanVM exposes a Poseidon2 precompile (`poseidon16`) operating on two 8-element Koala-Bear field arrays. Since the commitment preimage exceeds 16 field elements (31 elements total: 8 for `nullifier_preimage`, 13 for `validator_key`, 9 for `withdrawal_cred`, 1 for `amount`), the commitment hash requires chained `poseidon16` calls.
+We implement this using LeanVM, a VM coupled with a post-quantum proving system based on a combination of WHIR and Superspartan. LeanVM exposes a Poseidon1 precompile (`poseidon16`) operating on two 8-element Koala-Bear field arrays. Since the commitment preimage exceeds 16 field elements (31 elements total: 8 for `nullifier_preimage`, 13 for `validator_key`, 9 for `withdrawal_cred`, 1 for `amount`), the commitment hash requires chained `poseidon16` calls.
 
 ```python
 def compute_commitment(nullifier_preimage, validator_key, withdrawal_cred, amount):
