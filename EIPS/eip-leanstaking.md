@@ -1,5 +1,5 @@
 ---
-eip:
+eip: 8222
 title: Lean Staking
 description: L1 native, two-phase staking with validator unlinkability
 author: Mohammad Jahanara (@mmjahanara), Pierre Daix-Moreux (@dmpierre)
